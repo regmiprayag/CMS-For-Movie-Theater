@@ -9,9 +9,8 @@ const DefultLayout = () => {
     <div>   
         <Navbar/>
         <div className='flex'>
-
-        <Sidebar/>
-        <Outlet/>
+          <Sidebar/>
+          <Outlet/>
         </div>
     </div>
   )

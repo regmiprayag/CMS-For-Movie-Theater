@@ -15,8 +15,8 @@ const PrivateRoute = ({ element }) => {
 
     const loadDataAndSetInfo = async () => {
         await adminDetails().then((res) => 
-            // setUserData(res)
-            console.log(res)
+            setUserData(res)
+            // console.log(res)
         ).catch(err => console.log(err));
     }
 

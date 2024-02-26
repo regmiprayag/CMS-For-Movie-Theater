@@ -13,39 +13,33 @@ import PrivateRoute from './PrivateRoutes';
 // import PrivateRoute from '../../../frontend/src/routes/PrivateRoute';
 import { Navigate } from 'react-router-dom';
 import DefultLayout from '../layout/DefultLayout';
+import { userActions } from '../store/userSlice';
 
 const AllRoutes = () => {
 
   const isAdminLoggedIn = useSelector((state)=>state.user.isLoggedIn);
-  console.log("Is admin loggedin ",isAdminLoggedIn);
-
+  
+  const dispatch = useDispatch()  
   useEffect(()=>{
-
+    if(localStorage.getItem("userId")){
+      dispatch(userActions.login())
+    }
+    // console.log("Is admin loggedin ",isAdminLoggedIn);
   },[isAdminLoggedIn])
   
-
   return (
     <div>
-        {/* <Navbar/> */}
-        {/* <Sidebar/> */}
         <Routes>
-           {/* <Route path='/login/admin' element={<pages.auth.Login/>}/>
-
-            <Route path='/dashboard' element={<PrivateRoute element={<Sidebar/>} />}>
-            <Route path='home' element={<PrivateRoute element={<pages.home.Home/>}/>}/>
-            <Route path='movies' element={<PrivateRoute element={<pages.home.AllMovies/>}/>}/>
-          </Route>
-
-          <Route path='/dashboard' element={<PrivateRoute element={<Sidebar/>}/>}></Route> */}
-
           <Route path='/cms' element={<PrivateRoute element={<DefultLayout/>}/>}>
               <Route path='dashboard' element={<pages.home.Home/>}/>
               <Route path='movies' element={<pages.home.AllMovies/>}/>
+              <Route path='movie/addmovie' element={<pages.home.CreateMovie/>}/>
+              <Route path='movie/editMovie/:id' element={<pages.home.EditMovie/>}/>
+              <Route path='movie/addShowtime' element={<pages.home.showtime.AddShowtime/>}/>
           </Route>
           
           <Route path='/login/admin' element={<pages.auth.Login/>}/>
           <Route path='/' element={<pages.auth.Login/>}/>
-
 
           {/* <Route path='/dashboard' element={<PrivateRoute element={<pages.booking.Booking/>}/> */}
         </Routes>

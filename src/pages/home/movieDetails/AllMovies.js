@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getAllMovies } from "../../api-helpers/api";
-
+import { deleteMovie, getAllMovies } from "../../../api-helpers/api";
 import { Card, Typography } from "@material-tailwind/react";
-
-const TABLE_HEAD = ["Movies", "Actors", "Director", "Actions"];
-
-const TABLE_ROWS = [
-  {
-    name: "John Michael",
-    job: "Manager",
-    date: "23/04/18",
-  },
-];
+import {useNavigate} from "react-router-dom"
 
 const AllMovies = () => {
   const [movies, setMovies] = useState([]);
+  const navigate = useNavigate()
 
   const formattedDate = (dateString) => {
     const releaseDate = new Date(dateString);
@@ -29,9 +20,26 @@ const AllMovies = () => {
     });
   }, []);
 
-  console.log("All movies to render are ", movies);
+  const handleClick = async(id)=>{
+    deleteMovie(id)
+      .then((res)=>{
+        navigate("/cms/dashboard")
+      })
+  }
+
+  const handleEdit = async(id)=>{
+    // console.log("Clicked in the movieId: ",id);
+    navigate(`/cms/movie/editMovie/${id}`);
+  }
+
+  useEffect(()=>{
+    // console.log("Movies bhetey paxi ko part",movies[0]._id)
+  },[movies])
+
+  // console.log("All movies to render are ", movies);
   return (
-    <div className="mx-auto my-40">
+    <div className="mt-20 mx-12 w-full">
+      <h1 className="text-white text-3xl my-4">List of all Movies</h1>
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
@@ -52,7 +60,6 @@ const AllMovies = () => {
               Actors
             </th>
             <th scope="col" className="px-12 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Actions
             </th>
           </tr>
         </thead>
@@ -77,11 +84,13 @@ const AllMovies = () => {
                 {movie.actors}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="#" className="text-indigo-600 mx-4 bg-blue-300 px-4 p-1 rounded-xl hover:bg-blue-400">
+                {/* <a href="#" className="text-indigo-600 mx-4 bg-blue-300 px-4 p-1 rounded-xl hover:bg-blue-400">
                   Edit
-                </a>
+                </a> */}
+                <button onClick={()=>{handleEdit(movie._id)}} className="text-indigo-600 mx-4 bg-blue-300 px-4 p-1 rounded-xl hover:bg-blue-400">Edit</button>
+
                 <a href="#" className="text-white mx-4 bg-red-600 px-4 p-1 rounded-xl hover:bg-red-400">
-                  Delete
+                  <button onClick={()=>handleClick(movie._id)}>Delete</button>
                 </a>
               </td>
             </tr>
