@@ -20,3 +20,4 @@
 
 
 // not being able to update the movie because the value is coming as undefined;
+// update maa image ko lagi bhako xaina.

@@ -1,4 +1,7 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { useEffect } from "react";
+import {useNavigate} from "react-router-dom"
+
 
 const initialState = {
     isLoggedIn: false,
@@ -14,8 +17,8 @@ const userSlice = createSlice({
             state.isLoggedIn = true
         },
         logout(state){
-            localStorage.removeItem("userId")
-            localStorage.removeItem("token")
+            localStorage.removeItem("adminId")
+            localStorage.removeItem("adminToken")
             state.isLoggedIn = false
         },
     },
@@ -32,7 +35,7 @@ export const store = configureStore({
 const logoutAfterTwoMinutes = () => {
     setTimeout(() => {
         store.dispatch(userActions.logout()); // Dispatch the logout action
-    }, 10 * 60 * 1000); // 1 minutes in milliseconds
+    }, 5 * 60 * 1000); // 5 minutes in milliseconds
 }
 
 // Call the function when the user logs in

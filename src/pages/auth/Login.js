@@ -28,7 +28,7 @@ const Login = () => {
            dispatch(userActions.login())
         // localStorage.setItem("adminId",)
             localStorage.setItem("adminId", res.admin._id)
-            localStorage.setItem("token", res.token)
+            localStorage.setItem("adminToken", res.token)
             localStorage.setItem("adminName",res.admin.name)
            toast.success(res.message);
            navigate("/cms/dashboard");

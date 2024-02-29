@@ -12,7 +12,8 @@ const Sidebar = () => {
   const handleClick=()=>{
     navigate("/login/admin");
     toast.error("Logout Successfull");
-    localStorage.removeItem("token");
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminName");
     localStorage.removeItem("adminId");
   }
 
@@ -29,7 +30,7 @@ const Sidebar = () => {
                 <Link to="/cms/movies" className="block">All Movies</Link>
             </li>
             <li className="p-2 hover:bg-gray-700">
-                <Link to="#" className="block">See Users</Link>
+                <Link to="/cms/movies/showtime" className="block">Showtimes</Link>
             </li>
             <li className="p-2 hover:bg-gray-700">
                 <Link to="#" className="block">View</Link>

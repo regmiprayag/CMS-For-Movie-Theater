@@ -22,7 +22,7 @@ const PrivateRoute = ({ element }) => {
 
     useEffect(() => {
         if (Object.keys(user).length === 0) {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('adminToken');
             if (token) {
                 // toast.success("Please login to continue!");
                 loadDataAndSetInfo();

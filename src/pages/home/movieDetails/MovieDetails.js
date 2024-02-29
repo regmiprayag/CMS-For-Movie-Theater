@@ -17,7 +17,7 @@ const MovieDetails = ({movie}) => {
         <div className="relative group">
           <img
             src={`http://localhost:8000/images/${movie.posterUrl}`}
-            className="h-56 w-full rounded-xl"
+            className="h-32 w-full rounded-xl"
             alt="dummy"
           />
           <div className="text-2xl mt-4">{movie && movie.title}</div>

@@ -21,7 +21,7 @@ const AllRoutes = () => {
   
   const dispatch = useDispatch()  
   useEffect(()=>{
-    if(localStorage.getItem("userId")){
+    if(localStorage.getItem("adminId")){
       dispatch(userActions.login())
     }
     // console.log("Is admin loggedin ",isAdminLoggedIn);
@@ -36,6 +36,7 @@ const AllRoutes = () => {
               <Route path='movie/addmovie' element={<pages.home.CreateMovie/>}/>
               <Route path='movie/editMovie/:id' element={<pages.home.EditMovie/>}/>
               <Route path='movie/addShowtime' element={<pages.home.showtime.AddShowtime/>}/>
+              <Route path='movies/showtime' element={<pages.home.showtime.MoviesShowtime/>}/>
           </Route>
           
           <Route path='/login/admin' element={<pages.auth.Login/>}/>

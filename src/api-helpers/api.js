@@ -30,7 +30,7 @@ export const getAllMovies = async()=>{
 export const adminDetails = async () => {
     const res = await axios.get('http://localhost:8000/cms/admins', {
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
         }
     })
     const data = await res.data;
@@ -41,8 +41,7 @@ export const adminDetails = async () => {
 export const createMovie = async(formData)=>{
     const res = await axios.post('http://localhost:8000/cms/movies',formData, {
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`,
-            'Content-Type': 'multipart/form-data'
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
         }
     }).catch((err)=>{
         console.log("error aayo hay",err)
@@ -56,7 +55,7 @@ export const createMovie = async(formData)=>{
 export const deleteMovie = async (id) =>{
     const res = await axios.delete(`http://localhost:8000/cms/movies/${id}`,{
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
         }
     }).catch((err)=>{
         console.log("Error chai while deleting: ",err)
@@ -68,17 +67,16 @@ export const deleteMovie = async (id) =>{
 
 //Edit movie api banako heram milxa kii nai haita.
 export const editMovie = async(id, formData)=>{
-    console.log("To edit data are: ",id,formData);
-    return;
     const res = await axios.put(`http://localhost:8000/cms/movies/${id}`, formData, {
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`
-        },
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+        }
     }).catch((err)=>{
         console.log("error aayo hay",err)
     })
-    console.log("Frontend api after backend: ",res);
+    // console.log("Frontend api after backend: ",res);
     const resData = await res.data;
+    toast.success(resData.message);
     return resData; 
 }
 
@@ -86,7 +84,7 @@ export const editMovie = async(id, formData)=>{
 export const getMovieById = async (id) =>{
     let res=await axios.get(`http://localhost:8000/cms/movies/${id}`,{
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
         }
     }).catch((err)=>console.log(err));
     const resData = await res.data;
@@ -97,7 +95,7 @@ export const getMovieById = async (id) =>{
 export const createShowtime = async(formData,movieId)=> {
     const res = await axios.post(`http://localhost:8000/cms/movies/addshows/${movieId}`,formData,{
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
         }
     }).catch(err=>{console.log("Createshowtime api ko error aayo",err)})
 

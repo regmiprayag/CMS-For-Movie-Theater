@@ -16,14 +16,23 @@ const AddShowtime = () => {
     const  navigate = useNavigate();
 
     const movieId = location.state.id;
+    // console.log("MovieId is: ",movieId)
     
     const handleSubmit = (ev) => {
-        ev.preventDefault();
+      ev.preventDefault();
+      const regex = /^(0?[1-9]|1[0-2]):([0-5][0-9])\s?(am|pm)$/i;
+      console.log(regex.test(showTime));
+      
+      if(!showTime || !showDate){
+          alert("Please fill all the input fields");
+          return;
+      }
+      
+      if(!regex.test(showTime)){
+        alert("Invalid showtime format")
+        return;
+      }
         
-        if(!showTime || !showDate){
-            alert("Please fill all the input fields");
-            return;
-        }
 
         const [year, month, day] = showDate.split('-').map(Number);
         
@@ -32,11 +41,18 @@ const AddShowtime = () => {
         const newDate = dateObject.getTime();
 
         console.log("Today date: ", Date.now());
+
+        console.log("After two day date: ",Date.now()+172800000);
+        // return;
         
         if(newDate < Date.now()){
-            alert("Invalid Showtdate");
+            alert("Showtime cannot be created for past");
             return;
         }
+        else if(newDate > Date.now()+172800000){
+          alert("Showtime must be created before two days");
+          return;
+        } 
 
         let formData = {
             showTime,showDate
