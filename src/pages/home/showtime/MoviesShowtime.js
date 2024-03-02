@@ -1,88 +1,50 @@
 import React, { useEffect, useState } from 'react'
-import { getAllMovies } from '../../../api-helpers/api';
+import { getAllMovies, getAllShows } from '../../../api-helpers/api';
 
 const MoviesShowtime = () => {
-    const [movies, setMovies] = useState([]);
+    const [movie, setMovie] = useState([]);
+    const [showtimes, setShowtimes] = useState([]);
     useEffect(() => {
         getAllMovies().then((res) => {
           // console.log("From api all movies are: ",res.movies[0]._id)
-          setMovies(res.movies);
+          setMovie(res.movies);
         });
       }, []);
+    useEffect(()=>{
+        getAllShows()
+          .then((res)=>{
+            setShowtimes(res.showtime);
+          })
+    },[])
 
-      console.log("All movies are: ",movies);
+    // console.log("All showtimes are: ",showtimes[0].showTime)
 
+    showtimes?.map((showtime)=>{console.log(showtime.showTime)})
+    
   return (
-    <div className='bg-black text-white text-3xl mt-20 mx-12 w-full'>
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Title
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Release Date
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Actors
-              </th>
-              <th
-                scope="col"
-                className="px-12 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              ></th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {movies.map((movie) => (
-              <tr key={movie.id}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center">
-                    <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-900">
-                        {movie.title}
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
-                    {/* {formattedDate(movie.releaseDate)} */}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  {/* <a href="#" className="text-indigo-600 mx-4 bg-blue-300 px-4 p-1 rounded-xl hover:bg-blue-400">
-                  Edit
-                </a> */}
-                  <button
-                    onClick={() => {
-                    //   handleEdit(movie._id);
-                    }}
-                    className="text-indigo-600 mx-4 bg-blue-300 px-4 p-1 rounded-xl hover:bg-blue-400"
-                  >
-                    Edit
-                  </button>
-
-                  <a
-                    href="#"
-                    className="text-white mx-4 bg-red-600 px-4 p-1 rounded-xl hover:bg-red-400"
-                  >
-                    <button>Delete</button>
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="container mx-auto px-4 py-8 text-white">
+    <h1 className="text-3xl font-bold mb-4">Movies and Showtimes</h1>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Render movies */}
+      {movie?.map((movie) => (
+        <div key={movie.id} className="border p-4 rounded-md shadow-md">
+          <h2 className="text-xl font-bold mb-2">
+            {movie.title}
+            </h2>
+          <p className="mb-4">{movie.description}</p>
+          <p className="mb-4 text-xl text-red-600">Showtimes</p>
+          {/* <button className="mb-4 px-2 border border-white rounded-lg">{showtimes[0].showTime}</button> */}
+          {showtimes?.map((showtime)=>{
+            <button className='mb-4 px-2 border border-white rounded-lg'>{showtime.showTime}</button>
+        })}
+          {/* <button className="mb-4 px-2 border border-white rounded-lg">{showtimes.map((showtime)=>{
+            
+          })}</button> */}
+          
+        </div>
+      ))}
     </div>
+  </div>
   )
 }
 

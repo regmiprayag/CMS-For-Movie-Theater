@@ -46,7 +46,7 @@ const AllMovies = () => {
     // console.log("Movies bhetey paxi ko part",movies[0]._id)
   }, [movies]);
 
-  console.log("All movies to render are ", movies);
+  // console.log("All movies to render are ", movies);
   return (
     <div iv className="mt-20 mx-12 w-full">
       <h1 className="text-white text-3xl my-4">List of all Movies</h1>

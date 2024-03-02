@@ -35,7 +35,7 @@ export const store = configureStore({
 const logoutAfterTwoMinutes = () => {
     setTimeout(() => {
         store.dispatch(userActions.logout()); // Dispatch the logout action
-    }, 5 * 60 * 1000); // 5 minutes in milliseconds
+    }, 20 * 60 * 1000); // 20 minutes in milliseconds
 }
 
 // Call the function when the user logs in

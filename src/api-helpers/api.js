@@ -3,6 +3,7 @@ import { toast } from "react-toastify"
 
 export const checkAdmin = async(data)=>{
     const {email,password} = data
+    // console.log("admin details are: ",data);
     try{
         const res = await axios.post(`http://localhost:8000/login/admin`,{
             email,
@@ -39,16 +40,19 @@ export const adminDetails = async () => {
 
 //Creating movie by admin
 export const createMovie = async(formData)=>{
-    const res = await axios.post('http://localhost:8000/cms/movies',formData, {
+    // console.log("The movie to be created details apihelper are: ",formData);
+    const res = await axios.post('http://localhost:8000/cms/movies',formData,{
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
         }
-    }).catch((err)=>{
-        console.log("error aayo hay",err)
     })
-    toast.success(res.data.message);
-    const data = await res.data;
-    return data;
+      .catch((err)=>{
+         console.log("error aayo hay",err)
+      })
+    if(res){
+        console.log("The response data in apihelper are: ",res);
+        toast.success(res.data.message);
+    }
 }
 
 // Deleting a movie
@@ -67,6 +71,11 @@ export const deleteMovie = async (id) =>{
 
 //Edit movie api banako heram milxa kii nai haita.
 export const editMovie = async(id, formData)=>{
+    console.log("From the api");
+    formData.forEach((value, key) => {
+        console.log(`${key}:${value}`);
+      });
+
     const res = await axios.put(`http://localhost:8000/cms/movies/${id}`, formData, {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
@@ -74,10 +83,10 @@ export const editMovie = async(id, formData)=>{
     }).catch((err)=>{
         console.log("error aayo hay",err)
     })
-    // console.log("Frontend api after backend: ",res);
     const resData = await res.data;
+    console.log("Frontend api response is: ",resData.movies);
     toast.success(resData.message);
-    return resData; 
+    return resData.movies; 
 }
 
 // Getting a movie by it's id inorder to get the values so that we can edit the values
@@ -87,7 +96,9 @@ export const getMovieById = async (id) =>{
             'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
         }
     }).catch((err)=>console.log(err));
+
     const resData = await res.data;
+    // console.log("The picture of the movie from api is: ",resData.image)
     return resData; 
 }
 
@@ -103,4 +114,26 @@ export const createShowtime = async(formData,movieId)=> {
     // console.log("Yo chai response aayo hai", res);
     const resData = await res.data;
     return resData;
+}
+
+// Get all showtimes
+// export const getAllShows = async(id)=>{
+//     const res = await axios
+//         .get(`http://localhost:8000/showtimes/${id}`)
+//         .catch((err)=>{
+//             console.log(err)
+//     })
+
+//     const data = await res.data.message
+//     return data;
+// }
+export const getAllShows = async()=>{
+    const res = await axios
+        .get(`http://localhost:8000/showtimes`)
+        .catch((err)=>{
+            console.log(err)
+    })
+    // return;
+    const data = await res.data;
+    return data;
 }

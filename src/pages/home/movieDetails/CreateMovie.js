@@ -18,60 +18,69 @@ const CreateMovie = () => {
     const handleSubmit = (ev) => {
         ev.preventDefault();
 
-    //    let formDataa = new FormData();
+        // console.log("The values in formState are: ",form);
+        
+        let data = new FormData();
 
-    //    for(let key in form){
-    //     formDataa.append(key,form[key]);
-    //    }
+        for (let k in form) {
+          data.append(k, form[k])
+        }
 
-    //    console.log("The formdata are: ",formDataa);
-    //    return;
-    //  if(form==""){
-    //   alert("Don't leave any field empty");
-    //   return;
-    //  }
+        data.append('image', image);
+        
+        let flag = 0;
+        const img = data.get('image');
+        
+        data.forEach((value, key) => {
+          console.log(`${key}:${value}`);
+          flag++;
+        });
 
-    const data = {
-        title: form.title,
-        image: image,
-        actors: form.actors,
-        director: form.director,
-        description: form.description,
-        releaseDate: form.releaseDate,
-      };
+        if(flag!=6){
+          alert("Don't leave any field empty");
+          return;
+        }
+        console.log("Image is:",img)
 
-
-      if(data.title==undefined || data.actors==undefined || data.director==undefined || data.description==undefined || data.image==null){
-        alert("Don't leave any field empty");
-        return ;
+        if (!(img instanceof File)) {
+          alert("Image is not set");
+          return;
       }
+  
+      const releaseDate = data.get('releaseDate',);
 
-    const [year, month, day] = form.releaseDate.split('-').map(Number);    
-        // Month in JavaScript Date object starts from 0 (January) to 11 (December)
-        const dateObject = new Date(year, month - 1, day);
-        const newDate = dateObject.getTime();
-
-        if(newDate < Date.now()){
-            alert("Invalid Release Date");
-            return;
-        }
-
-        if (image) {
-            if (image.size > 10485760) {
-              alert("Image size should be less than 10MB.");
+      const [year, month, day] = form.releaseDate.split('-').map(Number);    
+          // Month in JavaScript Date object starts from 0 (January) to 11 (December)
+          const dateObject = new Date(year, month - 1, day);
+          const newDate = dateObject.getTime();
+  
+          if(newDate < Date.now()){
+              alert("Invalid Release Date");
               return;
+          }
+
+          const ext = image.name.split('.').pop().toLowerCase()
+          const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+          if (image) {
+              if (image.size > 10485760) {
+                alert("Image size should be less than 10MB.");
+                return;
+              }
+              if(!allowedExtensions.includes(ext)){
+                alert('Invalid image format. Please select a JPG, JPEG, PNG, or GIF file.');
+                return;
+              }
             }
-        }
-
-        createMovie(data)
-            .then((res)=>{
-                navigate("/cms/dashboard");
-            })
-    }
-
-    const handleClick = ()=>{
-        navigate("/cms/dashboard");
-    }
+  
+          createMovie(data)
+              .then((res)=>{
+                  navigate("/cms/dashboard");
+              })
+      }
+      const handleClick = ()=>{
+          navigate("/cms/dashboard");
+      }    
 
   return (
     <div className='w-dvw h-dvh text-black p-16 mx-12'>
@@ -118,12 +127,7 @@ const CreateMovie = () => {
                 <label htmlFor="image" className="mx-2 cursor-pointer rounded-md bg-white px-1 font-medium text-[#140044] focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2">
                   Upload a file
                   <input required
-                  onChange={event => {
-                            const files = event.target.files;
-                            if (files && files.length > 0) {
-                                    setImage(files[0]);
-                                }
-                            }}
+                 onChange={(ev) => setImage(ev.target.files[0])}
                   id="image" name="image" type="file" className="sr-only" />
                 </label>
               </div>

@@ -21,6 +21,7 @@ const Login = () => {
         email,
         password
       }
+    //   console.log("Admin details are: ",data);
 
     checkAdmin(data)
        .then((res)=>{
