@@ -32,7 +32,7 @@ const Home = () => {
         <button onClick={handleClick} className='bg-blue-400 px-6 rounded-2xl'>Add Movie</button>
      </div>
     <div className='text-white w-full'>
-      <div className='allMovies flex gap-4 p-4 grid grid-cols-1 md:grid-cols-4 lg:gird-cols-4 '>
+      <div className='allMovies flex gap-4 p-4 grid grid-cols-1 md:grid-cols-4 lg:gird-cols-4'>
           {movies?.map((movie) => (
             <div key={movie._id}>
               <MovieDetails movie={movie} />

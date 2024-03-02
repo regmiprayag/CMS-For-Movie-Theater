@@ -33,7 +33,7 @@ const Sidebar = () => {
                 <Link to="/cms/movies/showtime" className="block">Showtimes</Link>
             </li>
             <li className="p-2 hover:bg-gray-700">
-                <Link to="#" className="block">View</Link>
+                <Link to="/cms/bookings" className="block">See Bookings</Link>
             </li>
             <li className="p-2 hover:bg-gray-700">
                 <Link to="#" className="block">Settings</Link>

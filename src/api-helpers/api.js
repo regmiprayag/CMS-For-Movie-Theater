@@ -137,3 +137,18 @@ export const getAllShows = async()=>{
     const data = await res.data;
     return data;
 }
+
+// BOOKING SECTION
+export const getAllBookings = async()=>{
+    const res = await axios
+        .get(`http://localhost:8000/cms/bookings`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+            }
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    const resData = await res.data.message;
+    return resData;
+}
