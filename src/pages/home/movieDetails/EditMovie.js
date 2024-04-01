@@ -128,6 +128,7 @@ const EditMovie = () => {
             Edit Movie
           </h1>
         </div>
+        {/* <div>hello prayg</div> */}
         {dataFound && (
           <div>
             <form className="">

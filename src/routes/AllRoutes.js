@@ -37,6 +37,7 @@ const AllRoutes = () => {
               <Route path='movie/editMovie/:id' element={<pages.home.EditMovie/>}/>
               <Route path='movie/addShowtime' element={<pages.home.showtime.AddShowtime/>}/>
               <Route path='movies/showtime' element={<pages.home.showtime.MoviesShowtime/>}/>
+              <Route path='movie/editShowtime' element={<pages.home.showtime.EditShowtime/>}/>
               <Route path='bookings' element={<pages.home.SeeBookings/>}/>
           </Route>
           

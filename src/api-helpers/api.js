@@ -74,7 +74,7 @@ export const editMovie = async(id, formData)=>{
     console.log("From the api");
     formData.forEach((value, key) => {
         console.log(`${key}:${value}`);
-      });
+    });
 
     const res = await axios.put(`http://localhost:8000/cms/movies/${id}`, formData, {
         headers: {
@@ -104,6 +104,7 @@ export const getMovieById = async (id) =>{
 
 // Creating a showtime for a movie
 export const createShowtime = async(formData,movieId)=> {
+    console.log("The api details of createShowtime are: ",movieId,formData);
     const res = await axios.post(`http://localhost:8000/cms/movies/addshows/${movieId}`,formData,{
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
@@ -111,9 +112,9 @@ export const createShowtime = async(formData,movieId)=> {
     }).catch(err=>{console.log("Createshowtime api ko error aayo",err)})
 
     toast.success("Showtime  added successfully!");
-    // console.log("Yo chai response aayo hai", res);
-    const resData = await res.data;
-    return resData;
+    console.log("Yo chai response aayo hai", res);
+    // const resData = await res.data;
+    // return resData;
 }
 
 // Get all showtimes
@@ -127,6 +128,23 @@ export const createShowtime = async(formData,movieId)=> {
 //     const data = await res.data.message
 //     return data;
 // }
+
+export const editShowtime = async(showtime,showtimeId)=> {
+    // console.log("Inside the api the formdata are: ",showtime,showtimeId)
+    // return;
+    const res = await axios.put(`http://localhost:8000/cms/showtimes/edit/${showtimeId}`, {showtime} ,{
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+        }
+    }).catch(err=>{console.log("Editing showtime api ko error aayo",err)})
+
+    toast.success(res.data.message);
+    console.log("Yo chai response aayo hai", res);
+    const resData = await res.data;
+    return resData;
+}
+
+
 export const getAllShows = async()=>{
     const res = await axios
         .get(`http://localhost:8000/showtimes`)
@@ -137,6 +155,24 @@ export const getAllShows = async()=>{
     const data = await res.data;
     return data;
 }
+
+// Fetching the showdate for Now.
+export const getAllShowsToday = async()=>{
+    // console.log("Today date in api is: ");
+    const res = await axios.get("http://localhost:8000/showtimesToday").catch(err=>console.log("Showtoday error ho hai ",err))
+
+    const resData = await res.data;
+    return resData;    
+}
+
+export const getAllShowsTomorrow = async()=>{
+    const res = await axios.get("http://localhost:8000/showtimesTommorow").catch(err=>console.log("Tomorrow ko error ho hai ",err))
+    const resData = await res.data;
+
+    // console.log("From api tomorrow movies are: ",resData.showtime);
+    return resData;    
+}
+
 
 // BOOKING SECTION
 export const getAllBookings = async()=>{
