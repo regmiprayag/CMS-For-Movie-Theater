@@ -60,7 +60,7 @@ const AddShowtime = () => {
     // return;
     createShowtime(formData, movieId)
      .then((res) => {
-       navigate("/cms/dashboard");
+      //  navigate("/cms/dashboard");
     });
   };
 
