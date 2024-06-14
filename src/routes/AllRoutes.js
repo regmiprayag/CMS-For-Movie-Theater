@@ -33,12 +33,14 @@ const AllRoutes = () => {
           <Route path='/cms' element={<PrivateRoute element={<DefultLayout/>}/>}>
               <Route path='dashboard' element={<pages.home.Home/>}/>
               <Route path='movies' element={<pages.home.AllMovies/>}/>
+              <Route path='settings' element={<pages.home.settings/>}/>
               <Route path='movie/addmovie' element={<pages.home.CreateMovie/>}/>
               <Route path='movie/editMovie/:id' element={<pages.home.EditMovie/>}/>
               <Route path='movie/addShowtime' element={<pages.home.showtime.AddShowtime/>}/>
               <Route path='movies/showtime' element={<pages.home.showtime.MoviesShowtime/>}/>
               <Route path='movie/editShowtime' element={<pages.home.showtime.EditShowtime/>}/>
               <Route path='bookings' element={<pages.home.SeeBookings/>}/>
+              <Route path='viewSales' element={<pages.home.viewSales/>}/>
           </Route>
           
           <Route path='/login/admin' element={<pages.auth.Login/>}/>

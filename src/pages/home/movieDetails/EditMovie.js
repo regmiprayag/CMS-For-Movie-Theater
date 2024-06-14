@@ -87,33 +87,10 @@ const EditMovie = () => {
     const dateObject = new Date(year, month - 1, day);
     const newDate = dateObject.getTime();
 
-    if(newDate < Date.now()){
+    if(releaseDate < Date.now()){
         alert("Invalid Release Date");
         return;
     }
-
-      
-          
-
-          // // console.log("Image of image value ",img)
-          // const ext = image.split('.').pop().toLowerCase()
-          // const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-
-          // if (image) {
-          //     if (image.size > 10485760) {
-          //       alert("Image size should be less than 10MB.");
-          //       return;
-          //     }
-          //     if(!allowedExtensions.includes(ext)){
-          //       alert('Invalid image format. Please select a JPG, JPEG, PNG, or GIF file.');
-          //       return;
-          //     }
-          //   }
-    // data.append('image',image.name);
-    //  data.forEach((value, key) => {
-    //   console.log(`${key}:${value}`);
-    // });
-    // return;
 
     editMovie(id, data).then((res) => {
       console.log("The resData in frontend is: ", res);

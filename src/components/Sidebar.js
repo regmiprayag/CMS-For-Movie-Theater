@@ -36,7 +36,7 @@ const Sidebar = () => {
                 <Link to="/cms/bookings" className="block">See Bookings</Link>
             </li>
             <li className="p-2 hover:bg-gray-700">
-                <Link to="#" className="block">Settings</Link>
+                <Link to="/cms/viewSales" className="block">View Sales</Link>
             </li>
             <li onClick={handleClick}  className="p-2 bg-red-800 hover:bg-gray-700 cursor-pointer">
                 <button className="block">Logout</button>

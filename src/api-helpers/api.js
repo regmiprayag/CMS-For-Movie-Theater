@@ -117,17 +117,6 @@ export const createShowtime = async(formData,movieId)=> {
     // return resData;
 }
 
-// Get all showtimes
-// export const getAllShows = async(id)=>{
-//     const res = await axios
-//         .get(`http://localhost:8000/showtimes/${id}`)
-//         .catch((err)=>{
-//             console.log(err)
-//     })
-
-//     const data = await res.data.message
-//     return data;
-// }
 
 export const editShowtime = async(showtime,showtimeId)=> {
     // console.log("Inside the api the formdata are: ",showtime,showtimeId)
@@ -177,7 +166,7 @@ export const getAllShowsTomorrow = async()=>{
 // BOOKING SECTION
 export const getAllBookings = async()=>{
     const res = await axios
-        .get(`http://localhost:8000/cms/bookings`,{
+        .get(`http://localhost:8000/bookings`,{
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
             }
@@ -185,6 +174,6 @@ export const getAllBookings = async()=>{
         .catch((err)=>{
             console.log(err)
         })
-    const resData = await res.data.message;
+    const resData = await res.data;
     return resData;
 }
