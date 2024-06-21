@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { editShowtime } from "../../../api-helpers/api";
-
+import emailjs from "@emailjs/browser"
 
 const EditShowtime = () => {
   const location = useLocation();
@@ -14,7 +14,7 @@ const EditShowtime = () => {
   const showDateSession = sessionStorage.getItem("showDate");
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const regex = /^(0?[1-9]|1[0-2]):([0-5][0-9])\s?(am|pm)$/i;
     // console.log(regex.test(showtime));
 
@@ -23,16 +23,45 @@ const EditShowtime = () => {
       return;
     }
 
-    editShowtime(showtime,showtimeId)
-        .then((res)=>{
-            navigate("/cms/movies/showtime")
-    })
+    editShowtime(showtime, showtimeId).then((res) => {
+
+      // console.log("The response is: ",res," ",showtime)
+      // const message = (res.message," ",showtime);
+      // console.log("The message is: ",message)
+      const serviceId = "service_4yrkjoc";
+      const templateId = "template_npbqlmg";
+      const publicKey = "BPhN3L6ojSsbweMr_";
+
+      const data = {
+        serviceId: "Service",
+        templateId: "template_npbqlmg",
+        userId: publicKey,
+      };
+      const templateParams = {
+        from_name: "Prayag Regmi",
+        from_email: "prayag@bigmovies.com.np",
+        to_name: "Bishal Regmi",
+        message: showtime,
+      };
+
+      console.log("The details in data are: ", data);
+      emailjs.send(serviceId, templateId, templateParams, publicKey).then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        (error) => {
+          console.log("FAILED...", error);
+        }
+      );
+
+      navigate("/cms/movies/showtime");
+    });
     // console.log("The showDate and showtime are: ", showtime);
     // navigate("/cms/movies/showtime")
   };
   const handleClick = () => {
-    navigate("/cms/movies/showtime")
-  }
+    navigate("/cms/movies/showtime");
+  };
   return (
     <div className="bg-slate-400 text-white h-fit m-10 p-10">
       <form className="" onSubmit="">
@@ -73,7 +102,9 @@ const EditShowtime = () => {
             Back
           </button>
           <button
-            onClick={(e)=>{handleSubmit(e)}}
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
             type="submit"
             className="mb-6 w-full rounded-lg bg-[#1d4ed8] px-6 py-2.5 text-center text-sm font-medium text-white hover:bg-[#140044]/90 focus:outline-none"
           >

@@ -111,12 +111,16 @@ export const createShowtime = async(formData,movieId)=> {
         }
     }).catch(err=>{console.log("Createshowtime api ko error aayo",err)})
 
-    toast.success("Showtime  added successfully!");
-    console.log("Yo chai response aayo hai", res);
-    // const resData = await res.data;
-    // return resData;
-}
 
+    if(res.data.status==400){
+        toast.error(res.data.message)
+    }
+    else{
+        toast.success(res.data.message);
+    }
+    const resData = await res.data;
+    return resData;
+}
 
 export const editShowtime = async(showtime,showtimeId)=> {
     // console.log("Inside the api the formdata are: ",showtime,showtimeId)
@@ -128,7 +132,7 @@ export const editShowtime = async(showtime,showtimeId)=> {
     }).catch(err=>{console.log("Editing showtime api ko error aayo",err)})
 
     toast.success(res.data.message);
-    console.log("Yo chai response aayo hai", res);
+    // console.log("Yo chai response aayo hai", showtime);
     const resData = await res.data;
     return resData;
 }
@@ -165,6 +169,7 @@ export const getAllShowsTomorrow = async()=>{
 
 // BOOKING SECTION
 export const getAllBookings = async()=>{
+    // console.log("the rqurest from the frontend is")
     const res = await axios
         .get(`http://localhost:8000/bookings`,{
             headers: {
@@ -175,5 +180,35 @@ export const getAllBookings = async()=>{
             console.log(err)
         })
     const resData = await res.data;
+    // console.log("The resData are:",resData)
+    return resData;
+}
+
+export const getCancelledBookings = async()=>{
+    // console.log("aairaxa")
+    const res = await axios.get(`http://localhost:8000/cancelledBookings`,{
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+        }
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+const resData = await res.data;
+// console.log("The resData are:",res)
+return resData;
+}
+
+export const getUserById = async(id)=>{
+    const res = await axios.get(`http://localhost:8000/users/${id}`,{
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+        }
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+    const resData = await res.data;
+    console.log("The resData are:",res)
     return resData;
 }

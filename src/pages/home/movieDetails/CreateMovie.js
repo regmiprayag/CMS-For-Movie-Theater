@@ -14,7 +14,6 @@ const CreateMovie = () => {
     const [director, setDirector] = useState(null);
     const navigate = useNavigate();
 
-
     const handleSubmit = (ev) => {
         ev.preventDefault();
         let data = new FormData();
@@ -51,10 +50,10 @@ const CreateMovie = () => {
           const dateObject = new Date(year, month - 1, day);
           const newDate = dateObject.getTime();
   
-          if(newDate < Date.now()){
-              alert("Invalid Release Date");
-              return;
-          }
+          // if(newDate < Date.now()){
+          //     alert("Invalid Release Date");
+          //     return;
+          // }
 
           const ext = image.name.split('.').pop().toLowerCase()
           const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
